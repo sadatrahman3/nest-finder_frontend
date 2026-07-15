@@ -1,0 +1,38 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "NestFinder Frontend",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sadatrahman3/nest-finder_frontend.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/sadatrahman3/nest-finder_frontend/issues"
+  },
+  "homepage": "https://github.com/sadatrahman3/nest-finder_frontend#readme",
+  "dependencies": {
+    "next": "^16.2.10",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "recharts": "^3.9.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.2",
+    "@types/node": "^26.1.1",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.2.10",
+    "postcss": "^8.5.19",
+    "tailwindcss": "^4.3.2",
+    "typescript": "^6.0.3"
+  }
+}
