@@ -45,6 +45,14 @@ export default function Navbar() {
                 >
                   Manage
                 </Link>
+                {user.role === "admin" && (
+                  <Link
+                    href="/admin"
+                    className="text-secondary hover:text-secondary/80 transition-colors font-medium"
+                  >
+                    Admin Panel
+                  </Link>
+                )}
               </>
             )}
             <Link
@@ -72,6 +80,11 @@ export default function Navbar() {
               <div className="flex items-center space-x-4">
                 <span className="text-sm text-muted">
                   Hello, {user.name}
+                  {user.role === "admin" && (
+                    <span className="ml-1.5 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-secondary/10 text-secondary">
+                      Admin
+                    </span>
+                  )}
                 </span>
                 <button
                   onClick={logout}
@@ -163,6 +176,15 @@ export default function Navbar() {
                 >
                   Manage
                 </Link>
+                {user.role === "admin" && (
+                  <Link
+                    href="/admin"
+                    className="block text-secondary hover:text-secondary/80 font-medium"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Admin Panel
+                  </Link>
+                )}
               </>
             )}
             <Link
@@ -191,6 +213,11 @@ export default function Navbar() {
               <>
                 <span className="block text-sm text-muted">
                   Hello, {user.name}
+                  {user.role === "admin" && (
+                    <span className="ml-1.5 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-secondary/10 text-secondary">
+                      Admin
+                    </span>
+                  )}
                 </span>
                 <button
                   onClick={() => {

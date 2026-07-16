@@ -89,4 +89,34 @@ export const api = {
   stats: {
     get: () => fetchAPI("/stats"),
   },
+  admin: {
+    getAllUsers: (token: string) =>
+      fetchAPI("/admin/users", {
+        headers: { Authorization: `Bearer ${token}` },
+      }),
+    deleteUser: (token: string, id: string) =>
+      fetchAPI(`/admin/users/${id}`, {
+        method: "DELETE",
+        token,
+      }),
+    getAllItems: (token: string) =>
+      fetchAPI("/admin/items", {
+        headers: { Authorization: `Bearer ${token}` },
+      }),
+    deleteReview: (token: string, itemId: string, reviewId: string) =>
+      fetchAPI(`/admin/items/${itemId}/reviews/${reviewId}`, {
+        method: "DELETE",
+        token,
+      }),
+    toggleFeatured: (token: string, id: string) =>
+      fetchAPI(`/admin/items/${id}/featured`, {
+        method: "PATCH",
+        token,
+      }),
+    toggleAvailable: (token: string, id: string) =>
+      fetchAPI(`/admin/items/${id}/available`, {
+        method: "PATCH",
+        token,
+      }),
+  },
 };

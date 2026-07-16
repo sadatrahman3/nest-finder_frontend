@@ -65,8 +65,14 @@ export default function ManageItemsPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-dark mb-2">Manage Properties</h1>
-            <p className="text-muted">View and manage your listed properties</p>
+            <h1 className="text-3xl font-bold text-dark mb-2">
+              {user.role === "admin" ? "All Properties" : "Manage Properties"}
+            </h1>
+            <p className="text-muted">
+              {user.role === "admin"
+                ? "View and manage all listed properties"
+                : "View and manage your listed properties"}
+            </p>
           </div>
           <Link
             href="/items/add"
@@ -103,6 +109,11 @@ export default function ManageItemsPage() {
                     <th className="px-6 py-4 text-left text-sm font-semibold text-dark">
                       Property
                     </th>
+                    {user.role === "admin" && (
+                      <th className="px-6 py-4 text-left text-sm font-semibold text-dark">
+                        Owner
+                      </th>
+                    )}
                     <th className="px-6 py-4 text-left text-sm font-semibold text-dark">
                       Category
                     </th>
@@ -126,6 +137,11 @@ export default function ManageItemsPage() {
                       <td className="px-6 py-4">
                         <div className="font-medium text-dark">{item.title}</div>
                       </td>
+                      {user.role === "admin" && (
+                        <td className="px-6 py-4 text-sm text-muted">
+                          {(item.owner as any)?.name || "Unknown"}
+                        </td>
+                      )}
                       <td className="px-6 py-4 text-muted">{item.category}</td>
                       <td className="px-6 py-4 text-muted">{item.location}</td>
                       <td className="px-6 py-4 text-dark font-medium">
@@ -142,6 +158,12 @@ export default function ManageItemsPage() {
                             className="px-3 py-1.5 text-sm bg-slate-100 text-dark rounded-lg hover:bg-slate-200 transition-colors"
                           >
                             View
+                          </Link>
+                          <Link
+                            href={`/items/${item._id}/edit`}
+                            className="px-3 py-1.5 text-sm bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors"
+                          >
+                            Edit
                           </Link>
                           <button
                             onClick={() => handleDelete(item._id)}

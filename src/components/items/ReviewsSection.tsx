@@ -21,6 +21,7 @@ export default function ReviewsSection({
   const [comment, setComment] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const [deletingReview, setDeletingReview] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,6 +40,19 @@ export default function ReviewsSection({
       setError(err.message || "Failed to add review");
     } finally {
       setSubmitting(false);
+    }
+  };
+
+  const handleDeleteReview = async (reviewId: string) => {
+    if (!token || !confirm("Delete this review?")) return;
+    setDeletingReview(reviewId);
+    try {
+      await api.admin.deleteReview(token, itemId, reviewId);
+      onReviewAdded();
+    } catch (err: any) {
+      setError(err.message || "Failed to delete review");
+    } finally {
+      setDeletingReview(null);
     }
   };
 
@@ -115,7 +129,7 @@ export default function ReviewsSection({
                     {review.name.charAt(0)}
                   </span>
                 </div>
-                <div>
+                <div className="flex-1">
                   <div className="font-medium text-dark">{review.name}</div>
                   <div className="flex items-center gap-1">
                     {Array.from({ length: review.rating }).map((_, i) => (
@@ -125,6 +139,15 @@ export default function ReviewsSection({
                     ))}
                   </div>
                 </div>
+                {user?.role === "admin" && (
+                  <button
+                    onClick={() => handleDeleteReview(review._id)}
+                    disabled={deletingReview === review._id}
+                    className="text-sm text-red-500 hover:text-red-600 disabled:opacity-50"
+                  >
+                    {deletingReview === review._id ? "..." : "Delete"}
+                  </button>
+                )}
               </div>
               <p className="text-muted">{review.comment}</p>
             </div>
